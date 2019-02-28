@@ -12,14 +12,6 @@ function beastNameToURL(beastName) {
     }
 }
 
-function onCreated(tab) {
-    console.log(`Created new tab: ${tab.id}`)
-}
-
-function onError(error) {
-    console.log(`Error: ${error}`);
-}
-
 function createListElement(iconArg, titleArg, urlArg) {
     var img = document.createElement('img');
     var title = document.createElement('div');
@@ -41,7 +33,6 @@ function createListElement(iconArg, titleArg, urlArg) {
     line.appendChild(img);
     line.appendChild(title);
     line.appendChild(url);
-    line.setAttribute("class", "list-item");
     console.log(line);
     return line;
 }
@@ -65,35 +56,24 @@ document.addEventListener("click", (e) => {
     if (e.target.classList.contains("beast")) {
         var chosenBeast = e.target.textContent;
         var chosenBeastURL = beastNameToURL(chosenBeast);
-        console.log(chosenBeastURL);
-    }
-    //     browser.tabs.executeScript(null, {
-    //         file: "/content_scripts/beastify.js"
-    //     });
 
-    //     var gettingActiveTab = browser.tabs.query({
-    //         active: true,
-    //         currentWindow: true
-    //     });
-    //     gettingActiveTab.then((tabs) => {
-    //         browser.tabs.sendMessage(tabs[0].id, {
-    //             beastURL: chosenBeastURL
-    //         });
-    //     });
-    // } else if (e.target.classList.contains("clear")) {
-    //     browser.tabs.reload();
-    //     window.close();
-    // }
-
-    if (e.target.classList.contains("list-item")) {
-        var chosenItem = e.target;
-        console.log(chosenItem);
-        var newTab = browser.tabs.create({
-            url: chosenItem.children[2].innerText
+        browser.tabs.executeScript(null, {
+            file: "/content_scripts/beastify.js"
         });
-        newTab.then(onCreated, onError);
-    }
 
+        var gettingActiveTab = browser.tabs.query({
+            active: true,
+            currentWindow: true
+        });
+        gettingActiveTab.then((tabs) => {
+            browser.tabs.sendMessage(tabs[0].id, {
+                beastURL: chosenBeastURL
+            });
+        });
+    } else if (e.target.classList.contains("clear")) {
+        browser.tabs.reload();
+        window.close();
+    }
 });
 
 document.addEventListener("focus", (e) => {
