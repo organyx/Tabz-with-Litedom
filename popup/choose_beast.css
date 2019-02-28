@@ -29,6 +29,7 @@ body {
 
 .list-item {
     cursor: pointer;
+    line-height: 36px;
 }
 
 .list-item:hover {
@@ -36,10 +37,13 @@ body {
 }
 
 .title {
+    
     display: block;
-    width: 100px;
     height: 100%;
-    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    position: relative;
 }
 
 .url {
@@ -47,7 +51,8 @@ body {
 }
 
 .favicon {
-    padding-right: 2px;
-    width: 42px;
-    height: 42px;
+    float: left;
+    padding-right: 4px;
+    width: 36px;
+    height: 36px;
 }
