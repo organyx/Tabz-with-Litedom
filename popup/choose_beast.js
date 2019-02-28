@@ -22,11 +22,9 @@ function onError(error) {
 
 function createListElement(iconArg, titleArg, urlArg) {
     var img = document.createElement('img');
-    var title = document.createElement('div');
-    var url = document.createElement("div");
+    var title = document.createElement('span');
+    var url = document.createElement("span");
     var line = document.createElement('div');
-    img.setAttribute('height', 42);
-    img.setAttribute('width', 42);
     img.setAttribute('alt', 'icon');
 
     if (!iconArg) {
@@ -34,10 +32,14 @@ function createListElement(iconArg, titleArg, urlArg) {
     } else {
         img.setAttribute("src", iconArg);
     }
+    img.setAttribute("class", "favicon");
 
-    img.setAttribute("src", iconArg);
     title.innerHTML = titleArg;
+    title.setAttribute("class", "title");
+    
     url.innerHTML = urlArg;
+    url.setAttribute("class", "url");
+
     line.appendChild(img);
     line.appendChild(title);
     line.appendChild(url);

@@ -26,3 +26,28 @@ body {
 .clear:hover {
     background-color: #EAEAC9;
 }
+
+.list-item {
+    cursor: pointer;
+}
+
+.list-item:hover {
+    border: 1px solid black;
+}
+
+.title {
+    display: block;
+    width: 100px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.url {
+    display: none;
+}
+
+.favicon {
+    padding-right: 2px;
+    width: 42px;
+    height: 42px;
+}
