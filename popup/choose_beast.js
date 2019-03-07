@@ -1,23 +1,5 @@
-var tabIcon = document.querySelector('.favicon');
-var tabTitle = document.querySelector('.title');
-var tabUrl = document.querySelector('.url');
-
-/*
-Учитывая имя зверя, получаем URL соответствующего изображения.
-*/
-function beastNameToURL(beastName) {
-    switch (beastName) {
-        case "Frog":
-            return browser.extension.getURL("beasts/frog.jpg");
-        case "Snake":
-            return browser.extension.getURL("beasts/snake.jpg");
-        case "Turtle":
-            return browser.extension.getURL("beasts/turtle.jpg");
-    }
-}
-
 function onCreated(tab) {
-    console.log(`Created new tab: ${tab.id}`)
+    console.log(`Created new tab: ${tab.id}`);
 }
 
 function onError(error) {
@@ -25,6 +7,7 @@ function onError(error) {
 }
 
 function createListElement(iconArg, titleArg, urlArg) {
+    console.log('createListElement()');
     var img = document.createElement('img');
     var title = document.createElement('span');
     var url = document.createElement("span");
@@ -60,14 +43,32 @@ function initialize() {
         var tabKeys = Object.keys(results);
         for (let tabKey of tabKeys) {
             var currentValue = results[tabKey];
-            createListElement(tabKey, currentValue);
+            // createListElement(tabKey, currentValue);
+            // console.log(tabKeys);
         }
+        var tabIcon = results[tabKeys[0]];
+        var tabTitle = results[tabKeys[1]];
+        var tabUrl = results[tabKeys[2]];
+        // console.log(tabUrl);
+        createListElement(tabIcon, tabTitle, tabUrl);
     }, onError);
 }
 
-function addTab() {
-    // TODO
-    var tabIcon = this;
+function addTab(icon, title, url) {
+    console.log("addTab()");
+    var tabIcon = icon;
+    var tabTitle = title;
+    var tabUrl = url;
+    var settingTab = browser.storage.local.set({
+        tabIcon,
+        tabTitle,
+        tabUrl
+    });
+    settingTab.then(() => {
+        console.log('addTab(), Promise');
+        var newTabLine = createListElement(tabIcon, tabTitle, tabUrl);
+        // initialize();
+    }, onError);
 }
 
 function storeTab() {
@@ -83,45 +84,13 @@ function deleteTab(deleteTab, newTitle, newBody) {
     });
 }
 
-/*
-Слушаем события клика во всплывающей панели.
-  
-Если кликнули одного из зверей:
-  Добавляем "beastify.js" к активной вкладке.
-  
-  Затем получаем активную вкладку и отправляем сценарию "beastify.js"
-  сообщение, содержащее URL к картинке с выбранным зверем.
-  
-Если кликнули кнопку, класс которой содержит "clear":
-  Перезагрузить страницу.
-  Закрыть всплывающую панель. Это необходимо, так как content script
-  неисправен после перезагрузки страницы.  
-*/
+function purgeTabs() {
+    // var
+}
+
+
 
 document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("beast")) {
-        var chosenBeast = e.target.textContent;
-        var chosenBeastURL = beastNameToURL(chosenBeast);
-        console.log(chosenBeastURL);
-    }
-    //     browser.tabs.executeScript(null, {
-    //         file: "/content_scripts/beastify.js"
-    //     });
-
-    //     var gettingActiveTab = browser.tabs.query({
-    //         active: true,
-    //         currentWindow: true
-    //     });
-    //     gettingActiveTab.then((tabs) => {
-    //         browser.tabs.sendMessage(tabs[0].id, {
-    //             beastURL: chosenBeastURL
-    //         });
-    //     });
-    // } else if (e.target.classList.contains("clear")) {
-    //     browser.tabs.reload();
-    //     window.close();
-    // }
-
     if (e.target.classList.contains("list-item")) {
         var chosenItem = e.target;
         console.log(chosenItem);
@@ -133,18 +102,7 @@ document.addEventListener("click", (e) => {
 
 });
 
-document.addEventListener("focus", (e) => {
-    var gettingActiveTab = browser.tabs.query({
-        active: true,
-        currentWindow: true
-    });
-    gettingActiveTab.then((tabs) => {
-        // console.log("THIS", tabs);
-    })
-    // console.log('THIS', browser.tabs);
-});
-
-document.addEventListener("focus", (e) => {
+document.addEventListener("DOMContentLoaded", (e) => {
 
     var list = document.getElementById("list");
     var gettingActiveTab = browser.tabs.query({
@@ -154,5 +112,6 @@ document.addEventListener("focus", (e) => {
     gettingActiveTab.then((tabs) => {
         // list.appendChild();
         list.appendChild(createListElement(tabs[0].favIconUrl, tabs[0].title, tabs[0].url));
+        // addTab(tabs[0].favIconUrl, tabs[0].title, tabs[0].url);
     });
 })
