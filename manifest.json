@@ -1,5 +1,9 @@
 {
-
+    "applications": {
+        "gecko": {
+            "id": "aleksandr.beliun@gmail.com"
+        }
+    },
     "manifest_version": 2,
     "name": "Beastify",
     "version": "1.0",
@@ -11,7 +15,7 @@
     },
 
     "permissions": [
-        "activeTab", "tabs"
+        "activeTab", "tabs", "storage"
     ],
 
     "browser_action": {

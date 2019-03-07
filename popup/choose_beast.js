@@ -1,3 +1,7 @@
+var tabIcon = document.querySelector('.favicon');
+var tabTitle = document.querySelector('.title');
+var tabUrl = document.querySelector('.url');
+
 /*
 Учитывая имя зверя, получаем URL соответствующего изображения.
 */
@@ -36,7 +40,7 @@ function createListElement(iconArg, titleArg, urlArg) {
 
     title.innerHTML = titleArg;
     title.setAttribute("class", "title");
-    
+
     url.innerHTML = urlArg;
     url.setAttribute("class", "url");
 
@@ -46,6 +50,37 @@ function createListElement(iconArg, titleArg, urlArg) {
     line.setAttribute("class", "list-item");
     console.log(line);
     return line;
+}
+
+// initialize();
+
+function initialize() {
+    var getAllStoredTabs = browser.storage.local.get(null);
+    getAllStoredTabs.then((results) => {
+        var tabKeys = Object.keys(results);
+        for (let tabKey of tabKeys) {
+            var currentValue = results[tabKey];
+            createListElement(tabKey, currentValue);
+        }
+    }, onError);
+}
+
+function addTab() {
+    // TODO
+    var tabIcon = this;
+}
+
+function storeTab() {
+    //TODO
+}
+
+function deleteTab(deleteTab, newTitle, newBody) {
+    var storingTab = browser.storage.local.set({
+        [newTitle]: newBody
+    });
+    storingTab.then(() => {
+        // TO DO
+    });
 }
 
 /*
