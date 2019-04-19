@@ -66,30 +66,14 @@ function initialize() {
   }, onError);
 }
 
-function addTab(title, url, icon) {
-  console.log('addTab()');
-  var tabIcon = icon;
-  var tabTitle = title;
-  var tabUrl = url;
-  var settingTab = browser.storage.local.set({
-    tabTitle,
-    tabUrl,
-    tabIcon
-  });
-  settingTab.then(() => {
-    console.log('addTab(), Promise');
-    var newTabLine = createListElement(tabTitle, tabUrl, tabIcon);
-  }, onError);
-}
-
 document.addEventListener('click', e => {
-  if (e.target.classList.contains('list-item')) {
-    var chosenItem = e.target;
-    console.log(chosenItem);
+  if (e.target.parentElement.classList.contains('list-item')) {
+    var parent = e.target.parentElement;
     var newTab = browser.tabs.create({
-      url: chosenItem.children[2].innerText
+      url: parent.children[2].innerText
     });
     newTab.then(onCreated, onError);
+    console.log(parent);
   }
 });
 
@@ -129,7 +113,7 @@ document.addEventListener('click', e => {
 });
 
 document.addEventListener('DOMContentLoaded', e => {
-  var list = document.getElementById('list');
+  // var list = document.getElementById('list');
   var gettingActiveTab = browser.tabs.query({
     active: true,
     currentWindow: true
