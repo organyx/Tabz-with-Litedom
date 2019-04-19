@@ -47,31 +47,22 @@ function createListElement(titleArg, urlArg, iconArg) {
   return line;
 }
 
-// initialize();
-
 function initialize() {
   var getAllStoredTabs = browser.storage.local.get(null);
   getAllStoredTabs.then(results => {
-    var tabKeys = Object.keys(results);
-    // for (let tabKey of tabKeys) {
-    //   var currentValue = results[tabKey];
-    //   // createListElement(tabKey, currentValue);
-    //   // console.log(tabKeys);
-    // }
-    // var tabIcon = results[tabKeys[0]];
-    // var tabTitle = results[tabKeys[1]];
-    // var tabUrl = results[tabKeys[2]];
-    // // console.log(tabUrl);
-    // createListElement(tabIcon, tabTitle, tabUrl);
+    var list = document.getElementById('list');
+
     for (const key in results) {
       if (results.hasOwnProperty(key)) {
         const element = results[key];
-        // console.log(element);
-        var newTabLine = createListElement(element.title, element.url, element.icon);
-        // addTab(element.title, element.url, element.icon);
+        var newTabLine = createListElement(
+          element.title,
+          element.url,
+          element.icon
+        );
+        list.appendChild(newTabLine);
       }
     }
-    // console.log(results);
   }, onError);
 }
 
@@ -88,25 +79,7 @@ function addTab(title, url, icon) {
   settingTab.then(() => {
     console.log('addTab(), Promise');
     var newTabLine = createListElement(tabTitle, tabUrl, tabIcon);
-    // initialize();
   }, onError);
-}
-
-function storeTab() {
-  //TODO
-}
-
-function deleteTab(deleteTab, newTitle, newBody) {
-  var storingTab = browser.storage.local.set({
-    [newTitle]: newBody
-  });
-  storingTab.then(() => {
-    // TO DO
-  });
-}
-
-function purgeTabs() {
-  // var
 }
 
 document.addEventListener('click', e => {
@@ -162,26 +135,6 @@ document.addEventListener('DOMContentLoaded', e => {
     currentWindow: true
   });
   gettingActiveTab.then(tabs => {
-    // list.appendChild();
-    // list.appendChild(
-    //   createListElement(tabs[0].favIconUrl, tabs[0].title, tabs[0].url)
-    // );
-    // addTab(tabs[0].favIconUrl, tabs[0].title, tabs[0].url);
     initialize();
   }, onError);
 });
-
-// document.addEventListener('DOMContentLoaded', e => {
-//   var list = document.getElementById('list');
-//   var gettingActiveTab = browser.tabs.query({
-//     active: true,
-//     currentWindow: true
-//   });
-//   gettingActiveTab.then(tabs => {
-//     // list.appendChild();
-//     list.appendChild(
-//       createListElement(tabs[0].favIconUrl, tabs[0].title, tabs[0].url)
-//     );
-//     // addTab(tabs[0].favIconUrl, tabs[0].title, tabs[0].url);
-//   });
-// });
