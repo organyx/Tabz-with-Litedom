@@ -9,7 +9,7 @@
     "version": "1.0",
 
     "description": "To be Added later",
-    "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/beastify",
+    "homepage_url": "https://github.com/organyx/Tabz",
     "icons": {
         "48": "icons/beasts-48.png"
     },
@@ -22,5 +22,8 @@
         "default_icon": "icons/beasts-32.png",
         "default_title": "Tabz",
         "default_popup": "popup/tabz.html"
-    }
+    },
+    "web_accessible_resources": [
+        "icons/outline_close_black_18dp.png"
+    ]
 }

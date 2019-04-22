@@ -1,6 +1,7 @@
 html,
 body {
-    width: 300px;
+    width: 400px;
+    max-height: 500px;
 }
 
 .button {
@@ -30,6 +31,7 @@ body {
 .list-item {
     cursor: pointer;
     line-height: 36px;
+    float: right;
 }
 
 .list-item:hover {
@@ -54,4 +56,12 @@ body {
     padding-right: 4px;
     width: 36px;
     height: 36px;
+}
+
+.btn-close-tab:hover {
+    border: 1px solid rgb(161, 43, 43);
+}
+
+.tab {
+    float: left;
 }

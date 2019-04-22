@@ -1,17 +1,23 @@
 function onCreated(tab) {
-  console.log(`Created new tab: ${tab.id}`);
+  console.log('onCreated', `Created new tab: ${tab.id}`);
 }
 
 function setItem() {
-  console.log('Item Set');
+  console.log('setItem', 'Item Set');
+  refreshTabList();
 }
 
 function onGotItem(item) {
-  console.log(item);
+  console.log('onGotItem', item);
 }
 
 function onCleared() {
-  console.log('Tabs Cleared');
+  console.log('onCleared', 'All Tabs Cleared');
+}
+
+function onRemoved() {
+  console.log('onRemoved', 'Tab Removed');
+  refreshTabList();
 }
 
 function onError(error) {
@@ -19,11 +25,21 @@ function onError(error) {
 }
 
 function createListElement(titleArg, urlArg, iconArg) {
-  console.log('createListElement()');
+  // console.log('createListElement()');
+  // Tab Information
   var img = document.createElement('img');
   var title = document.createElement('span');
   var url = document.createElement('span');
-  var line = document.createElement('div');
+  var tabInfo = document.createElement('div');
+  // Tab Delete Button
+  var btnDeleteTab = document.createElement('img');
+  // Tab ID
+  var tabId = document.createElement('input');
+  // Tab Actions
+  var tabActions = document.createElement('div');
+  // General Container
+  var tab = document.createElement('div');
+
   img.setAttribute('alt', 'icon');
 
   if (!iconArg) {
@@ -39,12 +55,27 @@ function createListElement(titleArg, urlArg, iconArg) {
   url.innerHTML = urlArg;
   url.setAttribute('class', 'url');
 
-  line.appendChild(img);
-  line.appendChild(title);
-  line.appendChild(url);
-  line.setAttribute('class', 'list-item');
-  console.log(line);
-  return line;
+  btnDeleteTab.setAttribute('class', 'btn-close-tab');
+  btnDeleteTab.setAttribute('src', '/icons/outline_close_black_18dp.png');
+
+  tabId.setAttribute('type', 'hidden');
+  tabId.setAttribute('name', 'tabId');
+  tabId.value = titleArg;
+
+  tabInfo.appendChild(img);
+  tabInfo.appendChild(title);
+  tabInfo.appendChild(url);
+  tabInfo.setAttribute('class', 'list-item');
+
+  tabActions.appendChild(btnDeleteTab);
+  tabActions.appendChild(tabId);
+
+  tab.setAttribute('class', 'tab');
+  tab.appendChild(tabActions);
+  tab.appendChild(tabInfo);
+
+  console.log(tab);
+  return tab;
 }
 
 function initialize() {
@@ -64,6 +95,14 @@ function initialize() {
       }
     }
   }, onError);
+}
+
+function refreshTabList() {
+  var list = document.getElementById('list');
+  while (list.hasChildNodes()) {
+    list.removeChild(list.firstChild);
+  }
+  initialize();
 }
 
 document.addEventListener('click', e => {
@@ -109,6 +148,15 @@ document.addEventListener('click', e => {
   if (e.target.classList.contains('clear-tab')) {
     var clearStorage = browser.storage.local.clear();
     clearStorage.then(onCleared, onError);
+  }
+});
+
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('btn-close-tab')) {
+    var tabId = e.target.nextSibling.value;
+    console.log(tabId);
+    var removeTab = browser.storage.local.remove(tabId);
+    removeTab.then(onRemoved, onError);
   }
 });
 
