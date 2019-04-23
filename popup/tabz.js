@@ -13,6 +13,7 @@ function onGotItem(item) {
 
 function onCleared() {
   console.log('onCleared', 'All Tabs Cleared');
+  refreshTabList();
 }
 
 function onRemoved() {
@@ -157,6 +158,31 @@ document.addEventListener('click', e => {
     console.log(tabId);
     var removeTab = browser.storage.local.remove(tabId);
     removeTab.then(onRemoved, onError);
+  }
+});
+
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('add-all-tabs')) {
+    var allTabs = browser.tabs.query({});
+    allTabs.then(tabs => {
+      if (tabs) {
+        // console.log(tabs);
+        tabs.forEach(element => {
+          var insertTab = browser.storage.local
+            .set({
+              [element.title]: {
+                title: element.title,
+                url: element.url,
+                icon: element.favIconUrl
+              }
+            })
+            .then(() => {
+              console.log('Tab added');
+            }, onError);
+        });
+        refreshTabList();
+      }
+    }, onError);
   }
 });
 
