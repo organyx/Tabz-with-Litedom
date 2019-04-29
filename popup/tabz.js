@@ -60,11 +60,16 @@ function createListElement(titleArg, urlArg, iconArg) {
 
   btnDeleteTab.setAttribute('class', 'btn-close-tab');
   btnDeleteTab.setAttribute('src', '/icons/outline_close_black_18dp.png');
+  btnDeleteTab.setAttribute('title', 'Remove This Tab from the list');
 
   btnMoveTab.setAttribute('class', 'btn-move-tab');
   btnMoveTab.setAttribute(
     'src',
     '/icons/outline_bookmark_border_black_18dp.png'
+  );
+  btnMoveTab.setAttribute(
+    'title',
+    'Add This Tab to Bookmarks and Delete it from the list'
   );
 
   tabId.setAttribute('type', 'hidden');
