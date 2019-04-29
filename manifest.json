@@ -15,7 +15,7 @@
     },
 
     "permissions": [
-        "activeTab", "tabs", "storage"
+        "activeTab", "tabs", "storage", "bookmarks"
     ],
 
     "browser_action": {
@@ -24,6 +24,7 @@
         "default_popup": "popup/tabz.html"
     },
     "web_accessible_resources": [
-        "icons/outline_close_black_18dp.png"
+        "icons/outline_close_black_18dp.png",
+        "outline_bookmark_border_black_18dp.png"
     ]
 }

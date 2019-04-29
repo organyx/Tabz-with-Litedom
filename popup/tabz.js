@@ -34,6 +34,8 @@ function createListElement(titleArg, urlArg, iconArg) {
   var tabInfo = document.createElement('div');
   // Tab Delete Button
   var btnDeleteTab = document.createElement('img');
+  // Tab Move Button
+  var btnMoveTab = document.createElement('img');
   // Tab ID
   var tabId = document.createElement('input');
   // Tab Actions
@@ -59,6 +61,12 @@ function createListElement(titleArg, urlArg, iconArg) {
   btnDeleteTab.setAttribute('class', 'btn-close-tab');
   btnDeleteTab.setAttribute('src', '/icons/outline_close_black_18dp.png');
 
+  btnMoveTab.setAttribute('class', 'btn-move-tab');
+  btnMoveTab.setAttribute(
+    'src',
+    '/icons/outline_bookmark_border_black_18dp.png'
+  );
+
   tabId.setAttribute('type', 'hidden');
   tabId.setAttribute('name', 'tabId');
   tabId.value = titleArg;
@@ -69,6 +77,7 @@ function createListElement(titleArg, urlArg, iconArg) {
   tabInfo.setAttribute('class', 'list-item');
 
   tabActions.appendChild(btnDeleteTab);
+  tabActions.appendChild(btnMoveTab);
   tabActions.appendChild(tabId);
 
   tab.setAttribute('class', 'tab');
@@ -158,6 +167,36 @@ document.addEventListener('click', e => {
     console.log(tabId);
     var removeTab = browser.storage.local.remove(tabId);
     removeTab.then(onRemoved, onError);
+  }
+});
+
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('btn-move-tab')) {
+    var tabId = e.target.nextSibling.value;
+    // Create confirmation dialog
+    var confirmMove = confirm(
+      'Would you like to save this tab as a bookmark and close the tab?'
+    );
+    if (confirmMove) {
+      // If confirmed get tab information promise
+      var getTabInfo = browser.storage.local.get(tabId);
+      // Execute get information pormise
+      getTabInfo.then(tab => {
+        // Create a new bookmark promise with tab information
+        var createBookmark = browser.bookmarks.create({
+          title: tab[tabId].title,
+          url: tab[tabId].url
+        });
+        // Execute create new bookmark pormise
+        createBookmark.then(node => {
+          console.log('New Bookmark: ', node);
+          // Create remove tab promise
+          var removeTab = browser.storage.local.remove(tabId);
+          // Execute remove tab promise
+          removeTab.then(onRemoved, onError);
+        }, onError);
+      }, onError);
+    }
   }
 });
 
