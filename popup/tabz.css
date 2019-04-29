@@ -6,7 +6,8 @@ body {
 
 .button {
     margin: 3% auto;
-    padding: 4px;
+    display: inline-block;
+    padding: 4px 39px;
     text-align: center;
     font-size: 1.5em;
     cursor: pointer;
@@ -58,7 +59,8 @@ body {
     height: 36px;
 }
 
-.btn-close-tab:hover, .btn-move-tab:hover {
+.btn-close-tab:hover,
+.btn-move-tab:hover {
     border: 1px solid rgb(161, 43, 43);
 }
 
