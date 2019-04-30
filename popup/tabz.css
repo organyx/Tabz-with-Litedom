@@ -30,9 +30,10 @@ body {
 }
 
 .list-item {
+    max-width: 320px;
     cursor: pointer;
     line-height: 36px;
-    float: right;
+    width: 100%;
 }
 
 .list-item:hover {
@@ -64,6 +65,21 @@ body {
     border: 1px solid rgb(161, 43, 43);
 }
 
-.tab {
+.tab-info {
     float: left;
+}
+
+.tab-actions {
+    float: right;
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.parent {
+    width: 100%;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
 }

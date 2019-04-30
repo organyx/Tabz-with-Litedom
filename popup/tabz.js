@@ -79,15 +79,17 @@ function createListElement(titleArg, urlArg, iconArg) {
   tabInfo.appendChild(img);
   tabInfo.appendChild(title);
   tabInfo.appendChild(url);
-  tabInfo.setAttribute('class', 'list-item');
+  tabInfo.setAttribute('class', 'list-item tab-info');
 
   tabActions.appendChild(btnDeleteTab);
   tabActions.appendChild(btnMoveTab);
   tabActions.appendChild(tabId);
+  tabActions.setAttribute('class', 'tab-actions');
 
-  tab.setAttribute('class', 'tab');
-  tab.appendChild(tabActions);
+  // tab.setAttribute('class', 'tab');
   tab.appendChild(tabInfo);
+  tab.appendChild(tabActions);
+  tab.setAttribute('class', 'parent');
 
   console.log(tab);
   return tab;
