@@ -120,6 +120,7 @@ function refreshTabList() {
   initialize();
 }
 
+// Open New Tab
 document.addEventListener('click', e => {
   if (e.target.parentElement.classList.contains('list-item')) {
     var parent = e.target.parentElement;
@@ -130,7 +131,7 @@ document.addEventListener('click', e => {
     console.log(parent);
   }
 });
-
+// Add Current Tab to the list
 document.addEventListener('click', e => {
   if (e.target.classList.contains('add-tab')) {
     var relevantInfo = {};
@@ -151,30 +152,31 @@ document.addEventListener('click', e => {
     });
   }
 });
-
+// Get Tab list
 document.addEventListener('click', e => {
   if (e.target.classList.contains('check-tab')) {
     let getItemList = browser.storage.local.get();
     getItemList.then(onGotItem, onError);
   }
 });
-
+// Clear Tab list
 document.addEventListener('click', e => {
   if (e.target.classList.contains('clear-tab')) {
     var clearStorage = browser.storage.local.clear();
     clearStorage.then(onCleared, onError);
   }
 });
-
+// Close Single Tab
 document.addEventListener('click', e => {
   if (e.target.classList.contains('btn-close-tab')) {
-    var tabId = e.target.nextSibling.value;
+    var tabId = e.target.parentElement.lastChild.value;
+    // var tabId = e.target.nextSibling.value;
     console.log(tabId);
     var removeTab = browser.storage.local.remove(tabId);
     removeTab.then(onRemoved, onError);
   }
 });
-
+// Move Selected Tab to Bookmarks
 document.addEventListener('click', e => {
   if (e.target.classList.contains('btn-move-tab')) {
     var tabId = e.target.nextSibling.value;
@@ -204,7 +206,7 @@ document.addEventListener('click', e => {
     }
   }
 });
-
+// Add All open Tabs to the list
 document.addEventListener('click', e => {
   if (e.target.classList.contains('add-all-tabs')) {
     var allTabs = browser.tabs.query({});
@@ -229,7 +231,7 @@ document.addEventListener('click', e => {
     }, onError);
   }
 });
-
+// Load Initial Data
 document.addEventListener('DOMContentLoaded', e => {
   // var list = document.getElementById('list');
   var gettingActiveTab = browser.tabs.query({
