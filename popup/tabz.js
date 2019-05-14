@@ -112,7 +112,7 @@ function createListElement(titleArg, urlArg, iconArg) {
   return tab;
 }
 
-function initialize() {
+function getAllTabs() {
   var getAllStoredTabs = browser.storage.local.get(null);
   getAllStoredTabs.then(results => {
     console.log(window);
@@ -137,7 +137,7 @@ function refreshTabList() {
   while (list.hasChildNodes()) {
     list.removeChild(list.firstChild);
   }
-  initialize();
+  getAllTabs();
 }
 
 // Open a new Tab
@@ -257,6 +257,6 @@ function init(e) {
     currentWindow: true
   });
   gettingActiveTab.then(tabs => {
-    initialize();
+    getAllTabs();
   }, onError);
 }
