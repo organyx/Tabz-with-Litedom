@@ -43,7 +43,6 @@ function onError(error) {
 }
 
 function createListElement(titleArg, urlArg, iconArg) {
-  // console.log('createListElement()');
   // Tab Information
   var img = document.createElement('img');
   var title = document.createElement('span');
@@ -103,19 +102,16 @@ function createListElement(titleArg, urlArg, iconArg) {
   tabActions.appendChild(tabId);
   tabActions.setAttribute('class', 'tab-actions');
 
-  // tab.setAttribute('class', 'tab');
   tab.appendChild(tabInfo);
   tab.appendChild(tabActions);
   tab.setAttribute('class', 'parent');
 
-  console.log(tab);
   return tab;
 }
 
 function getAllTabs() {
   var getAllStoredTabs = browser.storage.local.get(null);
   getAllStoredTabs.then(results => {
-    console.log(window);
     var list = document.getElementById('list');
 
     for (const key in results) {
@@ -249,7 +245,6 @@ function addAllOpenTabsToTheList(e) {
     }, onError);
   }
 }
-
 // Initialize
 function init(e) {
   var gettingActiveTab = browser.tabs.query({
