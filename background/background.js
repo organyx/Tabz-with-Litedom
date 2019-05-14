@@ -1,9 +1,10 @@
 function cleanUpBookmarks() {
   console.log('TIME TO CLEAN THIS UP');
+  // browser.runtime.sendMessage({ msg: 'Hello from BG' });
 }
 
 browser.alarms.create('cleanupTime', {
-//   delayInMinutes: 1,
+  //   delayInMinutes: 1,
   periodInMinutes: 1
 });
 

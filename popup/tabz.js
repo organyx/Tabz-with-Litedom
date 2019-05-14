@@ -1,9 +1,26 @@
+// Open New Tab Event Listener
+document.addEventListener('click', openNewTab);
+// Add Current Tab to the list Event Listener
+document.addEventListener('click', addCurrentTabToTheList);
+// Get Tab list Event Listener
+document.addEventListener('click', getTabList);
+// Clear Tab list Event Listener
+document.addEventListener('click', clearTabList);
+// Close Single Tab Event Listener
+document.addEventListener('click', closeSingleTab);
+// Move Selected Tab to Bookmarks Event Listener
+document.addEventListener('click', moveSelectedTabToBookmarks);
+// Add All open Tabs to the list Event Listener
+document.addEventListener('click', addAllOpenTabsToTheList);
+// Load Initial Data Event Listener
+document.addEventListener('DOMContentLoaded', init);
+
 function onCreated(tab) {
   console.log('onCreated', `Created new tab: ${tab.id}`);
 }
 
-function setItem() {
-  console.log('setItem', 'Item Set');
+function setTab() {
+  console.log('setTab', 'Tab Set');
   refreshTabList();
 }
 
@@ -98,6 +115,7 @@ function createListElement(titleArg, urlArg, iconArg) {
 function initialize() {
   var getAllStoredTabs = browser.storage.local.get(null);
   getAllStoredTabs.then(results => {
+    console.log(window);
     var list = document.getElementById('list');
 
     for (const key in results) {
@@ -122,8 +140,8 @@ function refreshTabList() {
   initialize();
 }
 
-// Open New Tab
-document.addEventListener('click', e => {
+// Open a new Tab
+function openNewTab(e) {
   if (e.target.parentElement.classList.contains('list-item')) {
     var parent = e.target.parentElement;
     var newTab = browser.tabs.create({
@@ -132,9 +150,9 @@ document.addEventListener('click', e => {
     newTab.then(onCreated, onError);
     console.log(parent);
   }
-});
+}
 // Add Current Tab to the list
-document.addEventListener('click', e => {
+function addCurrentTabToTheList(e) {
   if (e.target.classList.contains('add-tab')) {
     var relevantInfo = {};
     var gettingActiveTab = browser.tabs.query({
@@ -150,36 +168,34 @@ document.addEventListener('click', e => {
       var insertTab = browser.storage.local.set({
         [relevantInfo.title]: relevantInfo
       });
-      insertTab.then(setItem, onError);
+      insertTab.then(setTab, onError);
     });
   }
-});
-// Get Tab list
-document.addEventListener('click', e => {
+}
+// Get Tab List
+function getTabList(e) {
   if (e.target.classList.contains('check-tab')) {
     let getItemList = browser.storage.local.get();
     getItemList.then(onGotItem, onError);
   }
-});
-// Clear Tab list
-document.addEventListener('click', e => {
+}
+// Clear Tab List
+function clearTabList(e) {
   if (e.target.classList.contains('clear-tab')) {
     var clearStorage = browser.storage.local.clear();
     clearStorage.then(onCleared, onError);
   }
-});
-// Close Single Tab
-document.addEventListener('click', e => {
+}
+// Close single Tab
+function closeSingleTab(e) {
   if (e.target.classList.contains('btn-close-tab')) {
     var tabId = e.target.parentElement.lastChild.value;
-    // var tabId = e.target.nextSibling.value;
-    console.log(tabId);
     var removeTab = browser.storage.local.remove(tabId);
     removeTab.then(onRemoved, onError);
   }
-});
-// Move Selected Tab to Bookmarks
-document.addEventListener('click', e => {
+}
+// Move selected Tab to Bookmarks
+function moveSelectedTabToBookmarks(e) {
   if (e.target.classList.contains('btn-move-tab')) {
     var tabId = e.target.nextSibling.value;
     // Create confirmation dialog
@@ -207,9 +223,9 @@ document.addEventListener('click', e => {
       }, onError);
     }
   }
-});
-// Add All open Tabs to the list
-document.addEventListener('click', e => {
+}
+// Add all open Tabs to the list
+function addAllOpenTabsToTheList(e) {
   if (e.target.classList.contains('add-all-tabs')) {
     var allTabs = browser.tabs.query({});
     allTabs.then(tabs => {
@@ -232,10 +248,10 @@ document.addEventListener('click', e => {
       }
     }, onError);
   }
-});
-// Load Initial Data
-document.addEventListener('DOMContentLoaded', e => {
-  // var list = document.getElementById('list');
+}
+
+// Initialize
+function init(e) {
   var gettingActiveTab = browser.tabs.query({
     active: true,
     currentWindow: true
@@ -243,5 +259,4 @@ document.addEventListener('DOMContentLoaded', e => {
   gettingActiveTab.then(tabs => {
     initialize();
   }, onError);
-});
-
+}
