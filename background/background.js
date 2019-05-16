@@ -45,20 +45,22 @@ browser.alarms.onAlarm.addListener(alarmInfo => {
 
 function createTabsFolderForBookmarks(e) {
   var checkIfBookmarkFolderExists = browser.bookmarks.search({
-    title: 'TabZZZ'
+    title: 'TabZ'
   });
   checkIfBookmarkFolderExists.then(node => {
     if (node.length > 0) {
       bookmarkFolderId = node[0].id;
       console.log('Bookmark folder already exists', bookmarkFolderId);
     } else {
+      console.log('Folder will be created');
       var createBookmarkFolder = browser.bookmarks.create({
-        title: 'TabZZZ'
+        title: 'TabZ'
       });
       createBookmarkFolder.then(node => {
-        bookmarkFolderId = node[0].id;
-        console.log('Bookmark folder created', node);
-      }, onError);
+        // console.log(node);
+        bookmarkFolderId = node.id;
+        console.log('Bookmark folder created', bookmarkFolderId);
+      });
     }
   }, onError);
 }
