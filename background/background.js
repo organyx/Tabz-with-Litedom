@@ -35,6 +35,13 @@ function storeAllTabsAsBookmarks() {
         }
       }
     }
+    clearStorage();
+  }, onError);
+}
+
+function clearStorage() {
+  browser.storage.local.clear().then(() => {
+    console.log('All Tabs were stored as bookmarks');
   }, onError);
 }
 
