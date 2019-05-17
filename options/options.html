@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>TabZ Options Menu</title>
+  </head>
+  <body>
+    <hr />
+    <div class="timer-select-container">
+      <span>Tab timeout timer</span>
+      <form>
+        <select name="timers" id="timers">
+          <option value="120">6 Hours</option>
+          <option value="720">12 Hours</option>
+          <option value="1440">24 Hours</option>
+          <option value="2880">48 Hours</option>
+        </select>
+        <input type="button" value="Set Timer" id="btn-set-global-timer" />
+      </form>
+    </div>
+    <hr />
+    <script src="options.js"></script>
+  </body>
+</html>

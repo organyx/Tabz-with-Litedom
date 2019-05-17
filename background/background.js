@@ -1,4 +1,5 @@
 var bookmarkFolderId;
+var globalTimer = 720;
 
 function onError(error) {
   console.log(`An error: ${error}`);
@@ -50,8 +51,8 @@ function cleanUpBookmarks() {
 }
 
 browser.alarms.create('cleanupTime', {
-  delayInMinutes: 0.5,
-  periodInMinutes: 0.1
+  delayInMinutes: 150,
+  periodInMinutes: globalTimer
 });
 
 browser.alarms.onAlarm.addListener(alarmInfo => {
@@ -81,3 +82,11 @@ function createTabsFolderForBookmarks(e) {
 }
 
 browser.runtime.onInstalled.addListener(createTabsFolderForBookmarks);
+
+function handleMessage(request, sender, sendResponse) {
+  console.log('received msg:', request.timer);
+  globalTimer = request.timer;
+  sendResponse({ response: 'all good' });
+}
+
+browser.runtime.onMessage.addListener(handleMessage);

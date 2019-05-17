@@ -15,6 +15,8 @@ document.addEventListener('click', addAllOpenTabsToTheList);
 // Load Initial Data Event Listener
 document.addEventListener('DOMContentLoaded', init);
 
+document.addEventListener('click', openOptions);
+
 function onCreated(tab) {
   console.log('onCreated', `Created new tab: ${tab.id}`);
 }
@@ -254,4 +256,10 @@ function init(e) {
   gettingActiveTab.then(tabs => {
     getAllTabs();
   }, onError);
+}
+
+function openOptions(e) {
+  if(e.target.id === 'btn-open-options') {
+    browser.runtime.openOptionsPage();
+  }
 }
