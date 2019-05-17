@@ -99,8 +99,8 @@ function createListElement(titleArg, urlArg, iconArg) {
   tabInfo.appendChild(url);
   tabInfo.setAttribute('class', 'list-item tab-info');
 
-  tabActions.appendChild(btnDeleteTab);
   tabActions.appendChild(btnMoveTab);
+  tabActions.appendChild(btnDeleteTab);
   tabActions.appendChild(tabId);
   tabActions.setAttribute('class', 'tab-actions');
 
