@@ -11,9 +11,12 @@
     "description": "The purpose of the extension is to collect all opened tabs and store them in local storage. Each tab would have a timer that when expired, would delete the tab from the storage or move it to bookmarks instead.",
     "homepage_url": "https://github.com/organyx/Tabz",
     "icons": {
-        "48": "icons/beasts-48.png"
+        "18": "icons/outline_tab_black_18dp.png",
+        "24": "icons/outline_tab_black_24dp.png",
+        "36": "icons/outline_tab_black_36dp.png",
+        "48": "icons/outline_tab_black_48dp.png"
     },
-    "options_ui":{
+    "options_ui": {
         "page": "options/options.html"
     },
 
