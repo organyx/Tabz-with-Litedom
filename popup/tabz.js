@@ -259,7 +259,7 @@ function init(e) {
 }
 
 function openOptions(e) {
-  if(e.target.id === 'btn-open-options') {
+  if (e.target.id === 'btn-open-options') {
     browser.runtime.openOptionsPage();
   }
 }

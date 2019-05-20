@@ -37,7 +37,7 @@ body {
 }
 
 .list-item:hover {
-    border: 1px solid black;
+    text-decoration: underline cornflowerblue solid;
 }
 
 .title {
@@ -60,9 +60,12 @@ body {
     height: 36px;
 }
 
-.btn-close-tab:hover,
+.btn-close-tab:hover {
+    background-color: crimson;
+}
+
 .btn-move-tab:hover {
-    border: 1px solid rgb(161, 43, 43);
+    background-color: darkseagreen;
 }
 
 .tab-info {
