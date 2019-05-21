@@ -2,19 +2,13 @@ html,
 body {
     width: 400px;
     max-width: 400px;
-    max-height: 500px;
-    /* overflow: hidden; */
-}
-
-.list {
-    /* overflow-y: scroll !important; */
+    max-height: 520px;
 }
 
 .button {
     margin: 3% auto;
     display: inline-block;
     padding: 4px 20px;
-    text-align: center;
     font-size: 1.5em;
     cursor: pointer;
 }
@@ -35,8 +29,13 @@ body {
     background-color: #EAEAC9;
 }
 
+.list {
+    max-height: 400px;
+    overflow-x: hidden;
+}
+
 .list-item {
-    max-width: 320px;
+    max-width: 300px;
     cursor: pointer;
     line-height: 36px;
     width: 100%;
