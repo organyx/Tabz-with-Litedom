@@ -32,5 +32,6 @@
 
     "background": {
         "scripts": ["background/background.js"]
-    }
+    },
+    "content_security_policy": "object-src 'self'; script-src 'self' 'unsafe-eval';"
 }
