@@ -7,53 +7,76 @@
   </head>
 
   <body>
-    <div class="button beast add-tab" title="Add current tab to the list">
-      <img
-        src="/icons/outline_add_black_18dp.png"
-        alt="Add current tab to the list"
-        class="add-tab"
-      />
-    </div>
-    <div
-      class="button beast add-all-tabs"
-      title="Add all open tabs to the list"
-    >
-      <img
-        src="/icons/outline_add_box_black_18dp.png"
-        alt="Add all open tabs to the list"
-        class="add-all-tabs"
-      />
-    </div>
-    <div class="button beast check-tab" title="Check the list with tabs">
-      <img
-        src="/icons/outline_update_black_18dp.png"
-        alt="Check the list with tabs"
-        class="check-tab"
-      />
-    </div>
-    <div class="button beast clear-tab" title="Clear all tabs from the list">
-      <img
-        src="/icons/outline_clear_all_black_18dp.png"
-        alt="Clear all tabs from the list"
-        class="clear-tab"
-      />
-    </div>
-    <div class="button beast btn-open-options" title="Open Settings">
-      <img
-        src="/icons/outline_settings_black_18dp.png"
-        alt="Open Settings"
-        class="btn-open-options"
-      />
-    </div>
-    <hr />
-    <!-- <button type="submit" id="btn-open-options">Options</button>
-    <hr /> -->
-    <!-- <div id="root">
-      Hello {this.world}
-    </div> -->
-    <div class="list" id="list"></div>
+    <div id="root">
+      <div class="button beast add-tab" title="Add current tab to the list">
+        <img
+          src="/icons/outline_add_black_18dp.png"
+          alt="Add current tab to the list"
+          class="add-tab"
+        />
+      </div>
+      <div
+        class="button beast add-all-tabs"
+        title="Add all open tabs to the list"
+      >
+        <img
+          src="/icons/outline_add_box_black_18dp.png"
+          alt="Add all open tabs to the list"
+          class="add-all-tabs"
+        />
+      </div>
+      <div class="button beast check-tab" title="Check the list with tabs">
+        <img
+          src="/icons/outline_update_black_18dp.png"
+          alt="Check the list with tabs"
+          class="check-tab"
+        />
+      </div>
+      <div class="button beast clear-tab" title="Clear all tabs from the list">
+        <img
+          src="/icons/outline_clear_all_black_18dp.png"
+          alt="Clear all tabs from the list"
+          class="clear-tab"
+        />
+      </div>
+      <div class="button beast btn-open-options" title="Open Settings">
+        <img
+          src="/icons/outline_settings_black_18dp.png"
+          alt="Open Settings"
+          class="btn-open-options"
+        />
+      </div>
+      <hr />
+      <!-- <button type="submit" id="btn-open-options">Options</button>
+      <hr /> -->
+      <!-- <div>
+        Hello {this.world}
+      </div> -->
+      <!-- <div class="list" id="list"></div> -->
 
-    <script src="tabz.js"></script>
+      <div class="list" id="list" r-if="this.itemList">
+        <div class="parent" r-for="item in this.itemList">
+          <div class="list-item tab-info">
+            <img src="{item.icon}" alt="icon" class="favicon" />
+            <span class="title" title="{item.title}">{item.title}</span>
+            <span class="url">{item.url}</span>
+          </div>
+          <div class="tab-actions">
+            <img
+              class="btn-move-tab"
+              src="/icons/outline_bookmark_border_black_18dp.png"
+              title="Add This Tab to Bookmarks and Delete it from the list"
+            /><img
+              class="btn-close-tab"
+              src="/icons/outline_close_black_18dp.png"
+              title="Remove This Tab from the list"
+            />
+            <input type="hidden" name="tabId" value="{item.title}" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="tabz.js"></script> -->
     <script type="module" src="tabz-relift.js"></script>
   </body>
 </html>
