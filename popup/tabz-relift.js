@@ -1,14 +1,5 @@
 import reLiftHTML from './relift.js';
 
-function setTab() {
-  console.log('setTab', 'Tab Set');
-  // refreshTabList();
-}
-
-function onGotItem(item) {
-  console.log('onGotItem', item);
-}
-
 function onError(error) {
   console.log(`Error: ${error}`);
 }
@@ -29,13 +20,6 @@ reLiftHTML({
     }, onError);
   },
   updated() {
-    // let getItemList = browser.storage.local.get();
-    // getItemList.then(items => {
-    //   console.log(items);
-    //   this.data.itemList = Object.values(items);
-    //   console.log(this.data.itemList);
-    // }, onError);
-    // this.render();
     console.log('Updated');
   },
   addCurrentTabToTheList(event) {
@@ -56,10 +40,7 @@ reLiftHTML({
       });
       insertTab.then(() => {
         console.log('setTab', 'Tab Set');
-        // this.render();
-        browser.storage.local.get().then(items => {
-          this.data.itemList = Object.values(items);
-        }, onError);
+        this.refreshTabList(event);
       }, onError);
     });
   },
@@ -80,9 +61,7 @@ reLiftHTML({
               console.log('Tab added');
             }, onError);
         });
-        browser.storage.local.get().then(items => {
-          this.data.itemList = Object.values(items);
-        }, onError);
+        this.refreshTabList(event);
       }
     }, onError);
   },
@@ -94,9 +73,7 @@ reLiftHTML({
   clearTabList(event) {
     var clearStorage = browser.storage.local.clear();
     clearStorage.then(() => {
-      browser.storage.local.get().then(items => {
-        this.data.itemList = Object.values(items);
-      }, onError);
+      this.refreshTabList(event);
     }, onError);
   },
   openOptions(event) {
@@ -125,9 +102,7 @@ reLiftHTML({
           var removeTab = browser.storage.local.remove(tabId);
           // Execute remove tab promise
           removeTab.then(() => {
-            browser.storage.local.get().then(items => {
-              this.data.itemList = Object.values(items);
-            }, onError);
+            this.refreshTabList(event);
           }, onError);
         }, onError);
       }, onError);
@@ -137,9 +112,7 @@ reLiftHTML({
     var tabId = event.target.parentElement.lastElementChild.value;
     var removeTab = browser.storage.local.remove(tabId);
     removeTab.then(() => {
-      browser.storage.local.get().then(items => {
-        this.data.itemList = Object.values(items);
-      }, onError);
+      this.refreshTabList(event);
     }, onError);
   }
 });
