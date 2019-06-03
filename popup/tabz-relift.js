@@ -90,20 +90,25 @@ reLiftHTML({
       var getTabInfo = browser.storage.local.get(tabId);
       // Execute get information pormise
       getTabInfo.then(tab => {
-        // Create a new bookmark promise with tab information
-        var createBookmark = browser.bookmarks.create({
-          title: tab[tabId].title,
-          url: tab[tabId].url
-        });
-        // Execute create new bookmark pormise
-        createBookmark.then(node => {
-          console.log('New Bookmark: ', node);
-          // Create remove tab promise
-          var removeTab = browser.storage.local.remove(tabId);
-          // Execute remove tab promise
-          removeTab.then(() => {
-            this.refreshTabList(event);
-          }, onError);
+        var getBookmarkFolderId = browser.storage.sync.get('bookmarkFolderId');
+        getBookmarkFolderId.then(options => {
+          // console.log("ID", id.bookmarkFolderId);
+          // Create a new bookmark promise with tab information
+          var createBookmark = browser.bookmarks.create({
+            parentId: options.bookmarkFolderId,
+            title: tab[tabId].title,
+            url: tab[tabId].url
+          });
+          // Execute create new bookmark pormise
+          createBookmark.then(node => {
+            console.log('New Bookmark: ', node);
+            // Create remove tab promise
+            var removeTab = browser.storage.local.remove(tabId);
+            // Execute remove tab promise
+            removeTab.then(() => {
+              this.refreshTabList(event);
+            }, onError);
+          });
         }, onError);
       }, onError);
     }

@@ -75,6 +75,13 @@ function createTabsFolderForBookmarks(e) {
       createBookmarkFolder.then(node => {
         // console.log(node);
         bookmarkFolderId = node.id;
+        var saveBookmarkFolderId = browser.storage.sync
+          .set({
+            bookmarkFolderId: bookmarkFolderId
+          })
+          .then(() => {
+            console.log('bookmarkFolderId Set');
+          }, onError);
         console.log('Bookmark folder created', bookmarkFolderId);
       });
     }
