@@ -31,7 +31,7 @@
     },
 
     "background": {
-        "scripts": ["background/background.js"]
+        "scripts": ["polyfill/browser-polyfill.js", "background/background.js"]
     },
     "content_security_policy": "object-src 'self'; script-src 'self' 'unsafe-eval';"
 }
