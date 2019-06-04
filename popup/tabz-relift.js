@@ -76,6 +76,16 @@ reLiftHTML({
       this.refreshTabList(event);
     }, onError);
   },
+  openNewTab(event) {
+    var parent = event.target.parentElement;
+    // console.log(parent);
+    var newTab = browser.tabs.create({
+      url: parent.children[2].innerText
+    });
+    newTab.then(() => {
+      console.log('New Tab', 'Opened');
+    }, onError);
+  },
   openOptions(event) {
     browser.runtime.openOptionsPage();
   },

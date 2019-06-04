@@ -75,7 +75,7 @@
 
       <div class="list" id="list" r-if="this.itemList">
         <div class="parent" r-for="item in this.itemList">
-          <div class="list-item tab-info">
+          <div class="list-item tab-info" @click="openNewTab">
             <img src="{item.icon}" alt="icon" class="favicon" />
             <span class="title" title="{item.title}">{item.title}</span>
             <span class="url">{item.url}</span>
