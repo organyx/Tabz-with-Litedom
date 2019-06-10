@@ -65,8 +65,14 @@ function createTabsFolderForBookmarks(e) {
   });
   checkIfBookmarkFolderExists.then(node => {
     if (node.length > 0) {
-      bookmarkFolderId = node[0].id;
-      console.log('Bookmark folder already exists', bookmarkFolderId);
+      // console.log(node[0].id);
+      var saveBookmarkFolderId = browser.storage.sync
+        .set({
+          bookmarkFolderId: node[0].id
+        })
+        .then(() => {
+          console.log('Bookmark folder already exists', node[0].id);
+        }, onError);
     } else {
       console.log('Folder will be created');
       var createBookmarkFolder = browser.bookmarks.create({
