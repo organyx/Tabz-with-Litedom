@@ -102,7 +102,8 @@ reLiftHTML({
       getTabInfo.then(tab => {
         var getBookmarkFolderId = browser.storage.sync.get('bookmarkFolderId');
         getBookmarkFolderId.then(options => {
-          // console.log("ID", id.bookmarkFolderId);
+          // FF gets the ID, Chrome returns undefined if the folder already exists
+          // console.log("ID", options);
           // Create a new bookmark promise with tab information
           var createBookmark = browser.bookmarks.create({
             parentId: options.bookmarkFolderId,

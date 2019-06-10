@@ -1,9 +1,4 @@
 {
-    "applications": {
-        "gecko": {
-            "id": "aleksandr.beliun@gmail.com"
-        }
-    },
     "manifest_version": 2,
     "name": "Tabz",
     "version": "1.0",
@@ -28,6 +23,12 @@
         "default_icon": "icons/outline_tab_black_48dp.png",
         "default_title": "Tabz",
         "default_popup": "popup/tabz.html"
+    },
+
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "aleksandr.beliun@gmail.com"
+        }
     },
 
     "background": {
