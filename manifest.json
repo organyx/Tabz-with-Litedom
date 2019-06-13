@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
     "name": "Tabz",
-    "version": "1.01",
+    "version": "1.0.2",
 
-    "description": "The purpose of the extension is to collect all opened tabs and store them in local storage. Each tab would have a timer that when expired, would delete the tab from the storage or move it to bookmarks instead.",
+    "description": "The purpose of the extension is to collect all opened tabs and store them in local storage.",
     "homepage_url": "https://github.com/organyx/Tabz",
     "icons": {
         "18": "icons/outline_tab_black_18dp.png",

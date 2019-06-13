@@ -5,23 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>TabZ Options Menu</title>
-    <script type="application/javascript" src="../polyfill/browser-polyfill.js"></script>
+    <script
+      type="application/javascript"
+      src="../polyfill/browser-polyfill.js"
+    ></script>
+    <script type="module" src="options.js"></script>
   </head>
   <body>
-    <hr />
-    <div class="timer-select-container">
-      <span>Tab timeout timer</span>
+    <div class="timer-select-container" id="root">
+      <h1>Tab timeout timer</h1>
+      <hr />
+      <div>Current timer is set to <span>{this.displayTimer}</span></div>
+      <hr />
       <form>
         <select name="timers" id="timers">
-          <option value="120">6 Hours</option>
-          <option value="720">12 Hours</option>
-          <option value="1440">24 Hours</option>
-          <option value="2880">48 Hours</option>
+          <option value="180" @bind="timer" name="timer">3 Hours</option>
+          <option value="360" @bind="timer" name="timer">6 Hours</option>
+          <option value="720" @bind="timer" name="timer">12 Hours</option>
+          <option value="1440" @bind="timer" name="timer">24 Hours</option>
         </select>
-        <input type="button" value="Set Timer" id="btn-set-global-timer" />
+        <input
+          type="button"
+          value="Set Timer"
+          id="btn-set-global-timer"
+          @click="setTimer"
+        />
+        <input
+          type="button"
+          value="Get Timer"
+          id="btn-get-global-timer"
+          @click="getTimer"
+        />
       </form>
     </div>
-    <hr />
-    <script src="options.js"></script>
   </body>
 </html>
