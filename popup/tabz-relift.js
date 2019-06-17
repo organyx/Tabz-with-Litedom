@@ -29,11 +29,19 @@ reLiftHTML({
       currentWindow: true
     });
     gettingActiveTab.then(tabs => {
-      relevantInfo = {
-        title: tabs[0].title,
-        url: tabs[0].url,
-        icon: tabs[0].favIconUrl
-      };
+      if (this.isValidIcon(tabs[0].favIconUrl)) {
+        relevantInfo = {
+          title: tabs[0].title,
+          url: tabs[0].url,
+          icon: tabs[0].favIconUrl
+        };
+      } else {
+        relevantInfo = {
+          title: tabs[0].title,
+          url: tabs[0].url,
+          icon: '../icons/outline_tab_black_18dp.png'
+        };
+      }
       console.log(relevantInfo);
       var insertTab = browser.storage.local.set({
         [relevantInfo.title]: relevantInfo
@@ -49,17 +57,27 @@ reLiftHTML({
     allTabs.then(tabs => {
       if (tabs) {
         tabs.forEach(element => {
-          var insertTab = browser.storage.local
-            .set({
+          var item = {};
+          if (this.isValidIcon(element.favIconUrl)) {
+            item = {
               [element.title]: {
                 title: element.title,
                 url: element.url,
                 icon: element.favIconUrl
               }
-            })
-            .then(() => {
-              console.log('Tab added');
-            }, onError);
+            };
+          } else {
+            item = {
+              [element.title]: {
+                title: element.title,
+                url: element.url,
+                icon: '../icons/outline_tab_black_18dp.png'
+              }
+            };
+          }
+          var insertTab = browser.storage.local.set(item).then(() => {
+            console.log('Tab added');
+          }, onError);
         });
         this.refreshTabList(event);
       }
@@ -102,8 +120,6 @@ reLiftHTML({
       getTabInfo.then(tab => {
         var getBookmarkFolderId = browser.storage.sync.get('bookmarkFolderId');
         getBookmarkFolderId.then(options => {
-          // FF gets the ID, Chrome returns undefined if the folder already exists
-          // console.log("ID", options);
           // Create a new bookmark promise with tab information
           var createBookmark = browser.bookmarks.create({
             parentId: options.bookmarkFolderId,
@@ -130,5 +146,9 @@ reLiftHTML({
     removeTab.then(() => {
       this.refreshTabList(event);
     }, onError);
+  },
+  isValidIcon(iconUrl) {
+    var isGood = /chrome/.test(iconUrl);
+    return iconUrl !== undefined && !isGood;
   }
 });
