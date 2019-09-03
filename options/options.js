@@ -1,6 +1,6 @@
-import reLiftHTML from '../popup/relift.js';
+import Litedom from '../litedom/litedom.es.js';
 
-reLiftHTML({
+Litedom({
   el: '#root',
   data: {
     timer: '',

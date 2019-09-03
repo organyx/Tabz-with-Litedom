@@ -1,10 +1,10 @@
-import reLiftHTML from './relift.js';
+import Litedom from '../litedom/litedom.es.js';
 
 function onError(error) {
   console.log(`Error: ${error}`);
 }
 
-reLiftHTML({
+Litedom({
   el: '#root',
   data: {
     world: 'World this is me',

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Tabz",
-    "version": "1.0.2",
+    "version": "1.0.3",
 
     "description": "The purpose of the extension is to collect all opened tabs and store them in local storage.",
     "homepage_url": "https://github.com/organyx/Tabz",

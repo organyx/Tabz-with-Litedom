@@ -8,7 +8,7 @@
       type="application/javascript"
       src="../polyfill/browser-polyfill.js"
     ></script>
-    <script type="module" src="tabz-relift.js"></script>
+    <script type="module" src="tabz.js"></script>
   </head>
 
   <body>
@@ -69,15 +69,8 @@
         />
       </div>
       <hr />
-      <!-- <button type="submit" id="btn-open-options">Options</button>
-      <hr /> -->
-      <!-- <div>
-        Hello {this.world}
-      </div> -->
-      <!-- <div class="list" id="list"></div> -->
-
-      <div class="list" id="list" r-if="this.itemList">
-        <div class="parent" r-for="item in this.itemList">
+      <div class="list" id="list" :if="this.itemList">
+        <div class="parent" :for="item in this.itemList">
           <div class="list-item tab-info" @click="openNewTab">
             <img src="{item.icon}" alt="icon" class="favicon" />
             <span class="title" title="{item.title}">{item.title}</span>
@@ -87,12 +80,12 @@
             <img
               class="btn-move-tab"
               src="/icons/outline_bookmark_border_black_18dp.png"
-              title="Add This Tab to Bookmarks and Delete it from the list"
+              title="Bookmark this Tab"
               @click="moveSelectedTabToBookmarks"
             /><img
               class="btn-close-tab"
               src="/icons/outline_close_black_18dp.png"
-              title="Remove This Tab from the list"
+              title="Remove this Tab"
               @click="closeSingleTab"
             />
             <input type="hidden" name="tabId" value="{item.title}" />
@@ -100,6 +93,5 @@
         </div>
       </div>
     </div>
-    <!-- <script src="tabz.js"></script> -->
   </body>
 </html>
